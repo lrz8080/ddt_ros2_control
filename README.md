@@ -50,6 +50,7 @@ sudo apt install ros-humble-gazebo-ros ros-humble-gazebo-ros2-control
 mkdir -p ~/ddt_ros2_ws && cd ~/ddt_ros2_ws
 # 将本仓库放置于 ~/ddt_ros2_ws/
 mv ddt_ros2 src
+
 # 如需使用mujoco，执行下方
 git clone -b 3.3.0 https://github.com/google-deepmind/mujoco.git
 # 构建
