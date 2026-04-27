@@ -22,64 +22,69 @@
 #include "gazebo_ros2_control/gazebo_system_interface.hpp"
 #include "realtime_tools/realtime_buffer.hpp"
 
-namespace usr_gazebo_ros2_control
-{
+namespace usr_gazebo_ros2_control {
 
-using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
+using CallbackReturn =
+    rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
 
 // Forward declaration
 class UsrGazeboSystemPrivate;
 
-// These class must inherit `gazebo_ros2_control::GazeboSystemInterface` which implements a
-// simulated `ros2_control` `hardware_interface::SystemInterface`.
+// These class must inherit `gazebo_ros2_control::GazeboSystemInterface` which
+// implements a simulated `ros2_control` `hardware_interface::SystemInterface`.
 
-class GazeboBridge : public gazebo_ros2_control::GazeboSystemInterface
-{
+class GazeboBridge : public gazebo_ros2_control::GazeboSystemInterface {
 public:
   // Documentation Inherited
-  CallbackReturn on_init(const hardware_interface::HardwareInfo & system_info) override;
+  CallbackReturn
+  on_init(const hardware_interface::HardwareInfo &system_info) override;
 
   // Documentation Inherited
-  std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
+  std::vector<hardware_interface::StateInterface>
+  export_state_interfaces() override;
 
   // Documentation Inherited
-  std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
+  std::vector<hardware_interface::CommandInterface>
+  export_command_interfaces() override;
 
   // Documentation Inherited
-  CallbackReturn on_activate(const rclcpp_lifecycle::State & previous_state) override;
+  CallbackReturn
+  on_activate(const rclcpp_lifecycle::State &previous_state) override;
 
   // Documentation Inherited
-  CallbackReturn on_deactivate(const rclcpp_lifecycle::State & previous_state) override;
+  CallbackReturn
+  on_deactivate(const rclcpp_lifecycle::State &previous_state) override;
 
   // Documentation Inherited
   hardware_interface::return_type perform_command_mode_switch(
-    const std::vector<std::string> & start_interfaces,
-    const std::vector<std::string> & stop_interfaces) override;
+      const std::vector<std::string> &start_interfaces,
+      const std::vector<std::string> &stop_interfaces) override;
 
   // Documentation Inherited
-  hardware_interface::return_type read(
-    const rclcpp::Time & time, const rclcpp::Duration & period) override;
+  hardware_interface::return_type read(const rclcpp::Time &time,
+                                       const rclcpp::Duration &period) override;
 
   // Documentation Inherited
-  hardware_interface::return_type write(
-    const rclcpp::Time & time, const rclcpp::Duration & period) override;
+  hardware_interface::return_type
+  write(const rclcpp::Time &time, const rclcpp::Duration &period) override;
 
   // Documentation Inherited
-  bool initSim(
-    rclcpp::Node::SharedPtr & model_nh, gazebo::physics::ModelPtr parent_model,
-    const hardware_interface::HardwareInfo & hardware_info, sdf::ElementPtr sdf) override;
+  bool initSim(rclcpp::Node::SharedPtr &model_nh,
+               gazebo::physics::ModelPtr parent_model,
+               const hardware_interface::HardwareInfo &hardware_info,
+               sdf::ElementPtr sdf) override;
 
 private:
-  void registerJoints(
-    const hardware_interface::HardwareInfo & hardware_info, gazebo::physics::ModelPtr parent_model);
+  void registerJoints(const hardware_interface::HardwareInfo &hardware_info,
+                      gazebo::physics::ModelPtr parent_model);
 
-  void registerSensors(
-    const hardware_interface::HardwareInfo & hardware_info, gazebo::physics::ModelPtr parent_model);
+  void registerSensors(const hardware_interface::HardwareInfo &hardware_info,
+                       gazebo::physics::ModelPtr parent_model);
 
-  int parseJointIndex(const std::string & jointName);
+  int parseJointIndex(const std::string &jointName);
 
   /// \brief Private data class
   std::unique_ptr<UsrGazeboSystemPrivate> dataPtr_;
 };
 
-}  // namespace usr_gazebo_ros2_control
+} // namespace usr_gazebo_ros2_control
