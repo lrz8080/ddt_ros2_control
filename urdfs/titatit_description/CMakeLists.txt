@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(titatit_description)
 set(INSTALL_DIRS
+  mujoco
   xacro
 )
 
